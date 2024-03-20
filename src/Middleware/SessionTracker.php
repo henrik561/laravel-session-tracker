@@ -1,11 +1,14 @@
-<?php namespace Hamedmehryar\SessionTracker\Middleware;
+<?php
+
+namespace HenrikHannewijk\SessionTracker\Middleware;
 
 use Closure;
-use Hamedmehryar\SessionTracker\SessionTrackerFacade;
+use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
 use \Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Config;
 
-class SessionTracker {
+class SessionTracker
+{
 
 
 	/**
@@ -35,29 +38,21 @@ class SessionTracker {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest())
-		{
-			if ($request->ajax())
-			{
+		if ($this->auth->guest()) {
+			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
-			}
-			else
-			{
+			} else {
 				return redirect()->route(Config::get('sessionTracker.logout_route_name'));
 			}
 			SessionTrackerFacade::endSession(true);
-		}else{
-			if(SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()){
-				if ($request->ajax())
-				{
+		} else {
+			if (SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()) {
+				if ($request->ajax()) {
 					return response('Unauthorized.', 401);
-				}
-				else
-				{
+				} else {
 					return redirect()->route(Config::get('sessionTracker.logout_route_name'));
 				}
-			}
-			elseif(SessionTrackerFacade::isSessionLocked()){
+			} elseif (SessionTrackerFacade::isSessionLocked()) {
 				return redirect()->route(Config::get('sessionTracker.security_code_route_name'));
 			}
 			SessionTrackerFacade::refreshSession($request);
@@ -65,5 +60,4 @@ class SessionTracker {
 		}
 		return $next($request);
 	}
-
 }

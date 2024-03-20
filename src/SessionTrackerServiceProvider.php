@@ -1,9 +1,12 @@
-<?php namespace Hamedmehryar\SessionTracker;
+<?php
+
+namespace HenrikHannewijk\SessionTracker;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
-class SessionTrackerServiceProvider extends ServiceProvider {
+class SessionTrackerServiceProvider extends ServiceProvider
+{
 
 	/**
 	 * Bootstrap the application services.
@@ -13,12 +16,12 @@ class SessionTrackerServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->publishes([
-			base_path('vendor/hamedmehryar/laravel-session-tracker/src/config/config.php') => config_path('sessionTracker.php'),
-			base_path('vendor/hamedmehryar/laravel-session-tracker/src/migrations') => base_path('database/migrations')
+			base_path('vendor/henrik561/laravel-session-tracker/src/config/config.php') => config_path('sessionTracker.php'),
+			base_path('vendor/henrik561/laravel-session-tracker/src/migrations') => base_path('database/migrations')
 		]);
 
 		$router = $this->app['router'];
-		$router->middleware('session', 'Hamedmehryar\SessionTracker\Middleware\SessionTracker');
+		$router->middleware('session', 'HenrikHannewijk\SessionTracker\Middleware\SessionTracker');
 	}
 
 	/**
@@ -29,7 +32,8 @@ class SessionTrackerServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->mergeConfigFrom(
-			base_path('vendor/hamedmehryar/laravel-session-tracker/src/config/config.php'), 'sessionTracker'
+			base_path('vendor/henrik561/laravel-session-tracker/src/config/config.php'),
+			'sessionTracker'
 		);
 		$this->registerSessionTracker();
 		$this->registerAuthenticationEventHandler();
@@ -47,9 +51,9 @@ class SessionTrackerServiceProvider extends ServiceProvider {
 		});
 	}
 
-	private function registerAuthenticationEventHandler(){
+	private function registerAuthenticationEventHandler()
+	{
 
-		Event::subscribe('Hamedmehryar\SessionTracker\AuthenticationHandler');
+		Event::subscribe('HenrikHannewijk\SessionTracker\AuthenticationHandler');
 	}
-
 }

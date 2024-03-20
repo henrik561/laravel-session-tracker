@@ -1,10 +1,12 @@
-<?php namespace Hamedmehryar\SessionTracker;
+<?php
+
+namespace HenrikHannewijk\SessionTracker;
 
 /**
  * This file is part of SessionTracker
  *
  * @license MIT
- * @package hamedmehryar\session-tracker
+ * @package henrik561\laravel-session-tracker
  */
 
 use Illuminate\Support\Facades\Facade;
