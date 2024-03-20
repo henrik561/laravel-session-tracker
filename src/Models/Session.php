@@ -111,30 +111,23 @@ class Session extends Model
 
     public static function log($request)
     {
-        if (self::latestRequest() == null || $request->getRequestUri() != self::latestRequest()->uri) {
-            foreach (Config::get('sessionTracker.ignore_log', array()) as $ignore) {
-                if (($request->route()->getName() == $ignore['route'] || $request->route()->getUri() == $ignore['route']) && $request->route()->methods()[0] == $ignore['method']) {
-                    break;
-                } else {
-                    if (\Illuminate\Support\Facades\Session::has('dbsession.id')) {
-                        $sessionRequest = SessionRequest::create([
-                            'session_id' => \Illuminate\Support\Facades\Session::get('dbsession.id'),
-                            'route' => $request->route()->getUri(),
-                            'uri' => $request->getRequestUri(),
-                            'method' => count($request->route()->getMethods()) > 0 ? $request->route()->getMethods()[0] : NULL,
-                            'name' => $request->route()->getName(),
-                            'parameters' => count($request->route()->parameters()) > 0 ? json_encode($request->route()->parameters()) : NULL,
-                            'type'       => $request->ajax() ? 1 : 0,
-                        ]);
-                        if ($sessionRequest) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
+        if (\Illuminate\Support\Facades\Session::has('dbsession.id')) {
+            $sessionRequest = SessionRequest::create([
+                'session_id' => \Illuminate\Support\Facades\Session::get('dbsession.id'),
+                'route' => $request->route()->getUri(),
+                'uri' => $request->getRequestUri(),
+                'method' => count($request->route()->getMethods()) > 0 ? $request->route()->getMethods()[0] : NULL,
+                'name' => $request->route()->getName(),
+                'parameters' => count($request->route()->parameters()) > 0 ? json_encode($request->route()->parameters()) : NULL,
+                'type'       => $request->ajax() ? 1 : 0,
+            ]);
+            if ($sessionRequest) {
+                return true;
+            } else {
+                return false;
             }
         }
+
         return false;
     }
 

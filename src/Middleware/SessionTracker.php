@@ -7,7 +7,6 @@ use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request as UserRequest;
-use Illuminate\Support\Facades\Log as Logger;
 
 class SessionTracker
 {
