@@ -115,10 +115,10 @@ class Session extends Model
             $sessionRequest = SessionRequest::create([
                 'session_id' => \Illuminate\Support\Facades\Session::get('dbsession.id'),
                 'route' => $request->route()->getName(),
-                'uri' => $request->getRequestUri(),
+                'uri' => $request->url(),
                 'method' => count($request->route()->methods) > 0 ? $request->route()->methods[0] : NULL,
                 'name' => $request->route()->getName(),
-                'parameters' => count($request->route()->parameters()) > 0 ? json_encode($request->route()->parameters()) : NULL,
+                'parameters' => count($request->toArray()) > 0 ? json_encode($request->toArray()) : NULL,
                 'type'       => $request->ajax() ? 1 : 0,
             ]);
             if ($sessionRequest) {
