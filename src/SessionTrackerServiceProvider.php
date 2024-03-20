@@ -24,7 +24,7 @@ class SessionTrackerServiceProvider extends ServiceProvider
 		], 'henrik561-session-tracker-migrations');
 
 		$router = $this->app['router'];
-		$router->middleware('session', 'HenrikHannewijk\SessionTracker\Middleware\SessionTracker');
+		$router->middleware('session.tracker', 'HenrikHannewijk\SessionTracker\Middleware\SessionTracker');
 	}
 
 	/**

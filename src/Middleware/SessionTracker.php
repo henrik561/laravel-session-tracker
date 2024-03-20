@@ -18,26 +18,26 @@ class SessionTracker
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (!Auth::check()) {
-			if ($request->ajax()) {
-				return response('Unauthorized.', 401);
-			} else {
-				return redirect()->route(Config::get('sessionTracker.logout_route_name'));
-			}
-			SessionTrackerFacade::endSession(true);
-		} else {
-			if (SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()) {
-				if ($request->ajax()) {
-					return response('Unauthorized.', 401);
-				} else {
-					return redirect()->route(Config::get('sessionTracker.logout_route_name'));
-				}
-			} elseif (SessionTrackerFacade::isSessionLocked()) {
-				return redirect()->route(Config::get('sessionTracker.security_code_route_name'));
-			}
-			SessionTrackerFacade::refreshSession($request);
-			SessionTrackerFacade::logSession($request);
-		}
+		// if (!Auth::check()) {
+		// 	if ($request->ajax()) {
+		// 		return response('Unauthorized.', 401);
+		// 	} else {
+		// 		return redirect()->route(Config::get('sessionTracker.logout_route_name'));
+		// 	}
+		// 	SessionTrackerFacade::endSession(true);
+		// } else {
+		// 	if (SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()) {
+		// 		if ($request->ajax()) {
+		// 			return response('Unauthorized.', 401);
+		// 		} else {
+		// 			return redirect()->route(Config::get('sessionTracker.logout_route_name'));
+		// 		}
+		// 	} elseif (SessionTrackerFacade::isSessionLocked()) {
+		// 		return redirect()->route(Config::get('sessionTracker.security_code_route_name'));
+		// 	}
+		// 	SessionTrackerFacade::refreshSession($request);
+		// 	SessionTrackerFacade::logSession($request);
+		// }
 
 		return $next($request);
 	}
