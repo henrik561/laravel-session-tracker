@@ -18,7 +18,7 @@ class SessionTracker
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($request->expectsJson()) {
+		if (Auth::check()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
