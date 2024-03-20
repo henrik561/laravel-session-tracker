@@ -66,9 +66,9 @@ Add the DeviceCheck middleware in your kernel.php file:
     	];
 
 
-In Your routes.php file you should add 'session' middleware for routes which you want to keep track of:
+In Your routes.php file you should add 'session.tracker' middleware for routes which you want to keep track of:
 
-    Route::group(['middleware'=>'session'], function(){
+    Route::group(['middleware'=>'session.tracker'], function(){
 
         Route::get('your-route', 'YourController@yourAction');
 
