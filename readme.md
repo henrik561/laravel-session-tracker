@@ -14,7 +14,7 @@ This package provides session tracking functionalities, multisession management 
 In composer.json:
 
     "require": {
-        "hamedmehryar/laravel-session-tracker" "1.0.0"
+        "henrik561/laravel-session-tracker" "1.0.0"
     }
 
 Run:
@@ -24,13 +24,13 @@ Run:
 Add the service provider to `config/app.php` under `providers`:
 
     'providers' => [
-        Hamedmehryar\SessionTracker\SessionTrackerServiceProvider::class,
+        HenrikHannewijk\SessionTracker\SessionTrackerServiceProvider::class,
     ]
 
 Add the SessionTracker alias to `config/app.php` under `aliases`:
 
         'aliases' => [
-            'SessionTracker' => 'Hamedmehryar\SessionTracker\SessionTrackerFacade',
+            'SessionTracker' => 'HenrikHannewijk\SessionTracker\SessionTrackerFacade',
         ]
 	
 Update config file to reference your login and logout route names:
@@ -43,7 +43,7 @@ Migrate your database:
 
 Add the trait to your user model:
 
-    use Hamedmehryar\SessionTracker\Traits\SessionTrackerUserTrait;
+    use HenrikHannewijk\SessionTracker\Traits\SessionTrackerUserTrait;
     
     class User extends Model {
     	use SessionTrackerUserTrait;
@@ -53,7 +53,7 @@ Add the trait to your user model:
 Add the DeviceCheck middleware in your kernel.php file:
 
     protected $middleware = [
-    		'Hamedmehryar\SessionTracker\Middleware\DeviceCheck',
+    		'HenrikHannewijk\SessionTracker\Middleware\DeviceCheck',
     	];
 
 
@@ -129,5 +129,5 @@ From SessionTrackerFacade:
 
 ## Author
 
-- [Hamed Mehryar](https://github.com/hamedmehryar)
+- [Henrik Hannewijk](https://github.com/henrik561)
 
