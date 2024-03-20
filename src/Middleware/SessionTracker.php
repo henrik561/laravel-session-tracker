@@ -4,31 +4,11 @@ namespace HenrikHannewijk\SessionTracker\Middleware;
 
 use Closure;
 use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
-use \Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 class SessionTracker
 {
-
-
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
-
-	/**
-	 * Create a new filter instance.
-	 *
-	 * @param  Guard  $auth
-	 * @return void
-	 */
-	public function __construct(Guard $auth)
-	{
-		$this->auth = $auth;
-	}
-
 	/**
 	 * Handle an incoming request.
 	 *
@@ -38,7 +18,7 @@ class SessionTracker
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest()) {
+		if (!Auth::check()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
@@ -58,6 +38,7 @@ class SessionTracker
 			SessionTrackerFacade::refreshSession($request);
 			SessionTrackerFacade::logSession($request);
 		}
+
 		return $next($request);
 	}
 }
