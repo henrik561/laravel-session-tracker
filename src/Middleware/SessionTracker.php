@@ -20,10 +20,7 @@ class SessionTracker
 	 */
 	public function handle(UserRequest $request, Closure $next)
 	{
-		Logger::info('SessionTracker Middleware');
-		Logger::emergency("request", [$request->toArray(), Auth::user(), Auth::check()]);
-		Logger::emergency("session", [SessionTrackerFacade::isSessionBlocked(), SessionTrackerFacade::isSessionInactive(), SessionTrackerFacade::isSessionLocked()]);
-		if (Auth::check()) {
+		if (!Auth::check()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
