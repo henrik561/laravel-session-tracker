@@ -6,6 +6,7 @@ use Closure;
 use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Http\Request;
 
 class SessionTracker
 {
