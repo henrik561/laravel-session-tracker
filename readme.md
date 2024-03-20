@@ -34,18 +34,17 @@ Add the SessionTracker alias to `config/app.php` under `aliases`:
         ]
 	
 Publish the config files via: 
-	```php
+	
 	php artisan vendor:publish --tag="henrik561-session-tracker-config"
-	```
+	
 
 Update config file to reference your login and logout route names:
 
 	config/sessionTracker.php
 
 publish the migration files via:
-	```php
+
 	php artisan vendor:publish --tag="henrik561-session-tracker-migrations"
-	```
 
 Migrate your database:
 
