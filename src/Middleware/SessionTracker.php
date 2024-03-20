@@ -16,8 +16,10 @@ class SessionTracker
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function handle($request, Closure $next)
+	public function handle(Request $request, Closure $next)
 	{
+		Log::info('SessionTracker Middleware');
+		Log::emergency("request", [$request->toArray(), Auth::user(), Auth::check()]);
 		if (Auth::check()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
