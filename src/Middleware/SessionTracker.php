@@ -23,14 +23,20 @@ class SessionTracker
 				return response('Unauthorized.', 401);
 			} else {
 				SessionTrackerFacade::endSession(true);
-				return redirect()->route(Config::get('sessionTracker.logout_route_name'));
+				Auth::guard('web')->logout();
+				$request->session()->invalidate();
+				$request->session()->regenerateToken();
+				return redirect()->route('login');
 			}
 		} else {
 			if (SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()) {
 				if ($request->ajax()) {
 					return response('Unauthorized.', 401);
 				} else {
-					return redirect()->route(Config::get('sessionTracker.logout_route_name'));
+					Auth::guard('web')->logout();
+					$request->session()->invalidate();
+					$request->session()->regenerateToken();
+					return redirect()->route('login');
 				}
 			} elseif (SessionTrackerFacade::isSessionLocked()) {
 				return redirect()->route(Config::get('sessionTracker.security_code_route_name'));
