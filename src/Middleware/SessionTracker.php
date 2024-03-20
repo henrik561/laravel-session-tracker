@@ -6,18 +6,18 @@ use Closure;
 use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as UserRequest;
 
 class SessionTracker
 {
 	/**
 	 * Handle an incoming request.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Illuminate\Http\UserRequest  $request
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function handle(Request $request, Closure $next)
+	public function handle(UserRequest $request, Closure $next)
 	{
 		Log::info('SessionTracker Middleware');
 		Log::emergency("request", [$request->toArray(), Auth::user(), Auth::check()]);
