@@ -3,7 +3,7 @@
     "description": "This package provides session tracking functionalities, multisession management and user device management features for laravel applications.",
     "type": "library",
     "require": {
-        "php": ">=8.2.0",
+        "php": ">=5.4.0",
         "laravel/framework": ">5.0",
         "nesbot/carbon": "~1.0",
         "jenssegers/agent": "^2.3"
