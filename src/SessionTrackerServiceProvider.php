@@ -17,8 +17,11 @@ class SessionTrackerServiceProvider extends ServiceProvider
 	{
 		$this->publishes([
 			base_path('vendor/henrik561/laravel-session-tracker/src/config/config.php') => config_path('sessionTracker.php'),
+		], 'henrik561-session-tracker-config');
+
+		$this->publishes([
 			base_path('vendor/henrik561/laravel-session-tracker/src/migrations') => base_path('database/migrations')
-		]);
+		], 'henrik561-session-tracker-migrations');
 
 		$router = $this->app['router'];
 		$router->middleware('session', 'HenrikHannewijk\SessionTracker\Middleware\SessionTracker');
