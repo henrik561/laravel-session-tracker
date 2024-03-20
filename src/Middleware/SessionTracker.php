@@ -22,9 +22,9 @@ class SessionTracker
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
+				SessionTrackerFacade::endSession(true);
 				return redirect()->route(Config::get('sessionTracker.logout_route_name'));
 			}
-			SessionTrackerFacade::endSession(true);
 		} else {
 			if (SessionTrackerFacade::isSessionBlocked() || SessionTrackerFacade::isSessionInactive()) {
 				if ($request->ajax()) {
@@ -35,9 +35,10 @@ class SessionTracker
 			} elseif (SessionTrackerFacade::isSessionLocked()) {
 				return redirect()->route(Config::get('sessionTracker.security_code_route_name'));
 			}
-			SessionTrackerFacade::refreshSession($request);
-			SessionTrackerFacade::logSession($request);
 		}
+
+		SessionTrackerFacade::refreshSession($request);
+		SessionTrackerFacade::logSession($request);
 
 		return $next($request);
 	}
