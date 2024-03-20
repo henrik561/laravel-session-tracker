@@ -7,7 +7,7 @@ use HenrikHannewijk\SessionTracker\SessionTrackerFacade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request as UserRequest;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log as Logger;
 
 class SessionTracker
 {
@@ -20,8 +20,8 @@ class SessionTracker
 	 */
 	public function handle(UserRequest $request, Closure $next)
 	{
-		Log::info('SessionTracker Middleware');
-		Log::emergency("request", [$request->toArray(), Auth::user(), Auth::check()]);
+		Logger::info('SessionTracker Middleware');
+		Logger::emergency("request", [$request->toArray(), Auth::user(), Auth::check()]);
 		if (Auth::check()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
