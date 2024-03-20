@@ -87,7 +87,7 @@ class Session extends Model
         return false;
     }
 
-    public static function refresh($request)
+    public static function refreshSession($request)
     {
         foreach (Config::get('sessionTracker.ignore_refresh', array()) as $ignore) {
             if (($request->route()->getName() == $ignore['route'] || $request->route()->getUri() == $ignore['route']) && $request->route()->methods()[0] == $ignore['method']) {
