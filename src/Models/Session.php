@@ -118,7 +118,7 @@ class Session extends Model
                 'uri' => $request->url(),
                 'method' => count($request->route()->methods) > 0 ? $request->route()->methods[0] : NULL,
                 'name' => $request->route()->getName(),
-                'parameters' => count($request->toArray()) > 0 ? json_encode($request->toArray()) : NULL,
+                'parameters' => count($request->toArray()) > 0 ? substr(json_encode($request->toArray()), 0, 255) : NULL,
                 'type'       => $request->ajax() ? 1 : 0,
             ]);
             if ($sessionRequest) {
