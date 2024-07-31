@@ -31,20 +31,22 @@ class Session extends Model
         $deviceId = Cookie::get('d_i', NULL);
         $userId = Auth::user()->id;
         $dateNow = Carbon::now();
+
         if ($deviceId) {
             self::where('device_uid', $deviceId)->where('user_id', $userId)->whereNull('end_date')->update(['end_date' => $dateNow]);
         }
+
         $session =  self::create([
             'user_id' => $userId,
-            "browser" => Agent::browser(),
-            "browser_version" => Agent::version(Agent::browser()),
-            "platform" => Agent::platform(),
-            "platform_version" => Agent::version(Agent::platform()),
-            "mobile" => Agent::isMobile(),
-            "device" => Agent::device(),
-            "robot" => Agent::isRobot(),
+            "browser" => Agent::browser() ?? NULL,
+            "browser_version" => Agent::version(Agent::browser()) ?? NULL,
+            "platform" => Agent::platform() ?? NULL,
+            "platform_version" => Agent::version(Agent::platform()) ?? NULL,
+            "mobile" => Agent::isMobile() ?? NULL,
+            "device" => Agent::device() ?? NULL,
+            "robot" => Agent::isRobot() ?? NULL,
             "device_uid" => $deviceId,
-            'ip'      => $_SERVER['REMOTE_ADDR'],
+            'ip'      => $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? NULL,
             'last_activity' => $dateNow
         ]);
         \Illuminate\Support\Facades\Session::put('dbsession.id', $session->id);

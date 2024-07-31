@@ -19,9 +19,10 @@ class DeviceCheck
 	 */
 	public function handle($request, Closure $next)
 	{
-		// if (!Cookie::has('d_i')) {
-		// 	Cookie::queue(Cookie::forever('d_i', Str::random(60), null, null, Config::get('session.secure', false), Config::get('session.http_only', true)));
-		// }
+		if (!Cookie::has('d_i')) {
+			Cookie::queue(Cookie::forever('d_i', Str::random(60), null, null, Config::get('session.secure', false), Config::get('session.http_only', true)));
+		}
+
 		return $next($request);
 	}
 }
