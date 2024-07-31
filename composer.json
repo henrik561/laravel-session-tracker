@@ -1,0 +1,24 @@
+{
+    "name": "henrik561/laravel-session-tracker",
+    "description": "This package provides session tracking functionalities, multisession management and user device management features for laravel applications.",
+    "type": "library",
+    "require": {
+        "php": ">=5.4.0",
+        "laravel/framework": ">5.0",
+        "nesbot/carbon": "^2.0",
+        "jenssegers/agent": "^2.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Henrik Hannewijk",
+            "email": "henrik@designated.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "HenrikHannewijk\\SessionTracker\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
